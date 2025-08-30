@@ -51,38 +51,38 @@ for _, vis_row in visitation_data.iterrows():
  for resort in ['Mt. Baw Baw', 'Mt. Stirling', 'Mt. Hotham', 'Falls Creek', 
  'Mt. Buller', 'Thredbo', 'Perisher', 'Charlotte Pass']:
  
- # Get weather data for this resort (handle special cases)
- if resort == 'Mt. Stirling':
- resort_weather = week_climate[week_climate['Resort'] == 'Mt. Buller']
- elif resort == 'Selwyn':
- # Skip Selwyn for now - no weather data
- continue
- else:
- resort_weather = week_climate[week_climate['Resort'] == resort]
+  # Get weather data for this resort (handle special cases)
+  if resort == 'Mt. Stirling':
+   resort_weather = week_climate[week_climate['Resort'] == 'Mt. Buller']
+  elif resort == 'Selwyn':
+   # Skip Selwyn for now - no weather data
+   continue
+  else:
+   resort_weather = week_climate[week_climate['Resort'] == resort]
  
- if len(resort_weather) > 0:
- # Calculate weekly averages
- avg_max_temp = resort_weather['Maximum temperature (Degree C)'].mean()
- avg_min_temp = resort_weather['Minimum temperature (Degree C)'].mean()
- total_rainfall = resort_weather['Rainfall amount (millimetres)'].sum()
- 
- # Count potential snow days (assuming temp < 2°C + rain = snow)
- snow_days = len(resort_weather[
- (resort_weather['Maximum temperature (Degree C)'] < 2) & 
- (resort_weather['Rainfall amount (millimetres)'] > 0)
- ])
- 
- combined_data.append({
- 'Year': year,
- 'Week': week,
- 'Resort': resort,
- 'Visitors': vis_row[resort] if resort in vis_row else 0,
- 'Avg_Max_Temp': avg_max_temp,
- 'Avg_Min_Temp': avg_min_temp,
- 'Total_Rainfall': total_rainfall,
- 'Snow_Days': snow_days,
- 'Avg_Temp': (avg_max_temp + avg_min_temp) / 2
- })
+  if len(resort_weather) > 0:
+   # Calculate weekly averages
+   avg_max_temp = resort_weather['Maximum temperature (Degree C)'].mean()
+   avg_min_temp = resort_weather['Minimum temperature (Degree C)'].mean()
+   total_rainfall = resort_weather['Rainfall amount (millimetres)'].sum()
+   
+   # Count potential snow days (assuming temp < 2°C + rain = snow)
+   snow_days = len(resort_weather[
+    (resort_weather['Maximum temperature (Degree C)'] < 2) & 
+    (resort_weather['Rainfall amount (millimetres)'] > 0)
+   ])
+   
+   combined_data.append({
+    'Year': year,
+    'Week': week,
+    'Resort': resort,
+    'Visitors': vis_row[resort] if resort in vis_row else 0,
+    'Avg_Max_Temp': avg_max_temp,
+    'Avg_Min_Temp': avg_min_temp,
+    'Total_Rainfall': total_rainfall,
+    'Snow_Days': snow_days,
+    'Avg_Temp': (avg_max_temp + avg_min_temp) / 2
+   })
 
 # Create DataFrame
 df = pd.DataFrame(combined_data)
@@ -100,20 +100,20 @@ for resort in df['Resort'].unique():
  resort_data = df[df['Resort'] == resort]
  
  if len(resort_data) > 20: # Need sufficient data points
- temp_corr = resort_data['Visitors'].corr(resort_data['Avg_Temp'])
- rain_corr = resort_data['Visitors'].corr(resort_data['Total_Rainfall'])
- snow_corr = resort_data['Visitors'].corr(resort_data['Snow_Days'])
- 
- correlations[resort] = {
- 'Temperature': temp_corr,
- 'Rainfall': rain_corr, 
- 'Snow_Days': snow_corr
- }
- 
- print(f"\n{resort}:")
- print(f" Temperature vs Visitors: {temp_corr:.3f}")
- print(f" Rainfall vs Visitors: {rain_corr:.3f}")
- print(f" Snow Days vs Visitors: {snow_corr:.3f}")
+  temp_corr = resort_data['Visitors'].corr(resort_data['Avg_Temp'])
+  rain_corr = resort_data['Visitors'].corr(resort_data['Total_Rainfall'])
+  snow_corr = resort_data['Visitors'].corr(resort_data['Snow_Days'])
+  
+  correlations[resort] = {
+   'Temperature': temp_corr,
+   'Rainfall': rain_corr, 
+   'Snow_Days': snow_corr
+  }
+  
+  print(f"\n{resort}:")
+  print(f"  Temperature vs Visitors: {temp_corr:.3f}")
+  print(f"  Rainfall vs Visitors: {rain_corr:.3f}")
+  print(f"  Snow Days vs Visitors: {snow_corr:.3f}")
 
 print("\n OPTIMAL WEATHER CONDITIONS:")
 print("-" * 40)

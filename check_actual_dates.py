@@ -38,21 +38,7 @@ print("Monthly counts in 2025:")
 for month, count in monthly_2025.items():
     print(f"  Month {month:02d}: {count} records")
 
-# Check if we have 2025 visitation data
-print(f"\n2025 VISITATION DATA CHECK:")
-if 2025 in visitation_data['Year'].values:
-    data_2025_vis = visitation_data[visitation_data['Year'] == 2025]
-    print(f"2025 visitation records: {len(data_2025_vis)}")
-    print(f"Weeks covered: {sorted(data_2025_vis['Week'].unique())}")
-else:
-    print("No 2025 visitation data found")
-    
-print(f"\nCOVID PERIOD ANALYSIS UPDATE:")
-if 2025 in visitation_data['Year'].values:
-    print("POST-COVID period should be: 2023-2025 (3 years)")
-    post_covid = visitation_data[visitation_data['Year'] >= 2023]
-    print(f"Post-COVID data points: {len(post_covid)} records")
-else:
-    print("POST-COVID period: 2023-2024 (2 years)")
-    post_covid = visitation_data[visitation_data['Year'] >= 2023]
-    print(f"Post-COVID data points: {len(post_covid)} records")
+print(f"\nCOVID PERIOD ANALYSIS:")
+print("POST-COVID period: 2023-2024 (2 years)")
+post_covid = visitation_data[visitation_data['Year'] >= 2023]
+print(f"Post-COVID data points: {len(post_covid)} records")
