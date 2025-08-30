@@ -60,8 +60,8 @@ for i in range(1, len(yearly_totals)):
  growth_rates.append((year, growth))
  
  if abs(growth) > 15: # Highlight significant changes
- trend = "" if growth > 0 else ""
- print(f" {year}: {growth:+6.1f}% {trend}")
+  trend = "UP" if growth > 0 else "DOWN"
+  print(f" {year}: {growth:+6.1f}% {trend}")
 
 print("\n KEY INSIGHTS FOR 2026:")
 print("-" * 30)
