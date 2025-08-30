@@ -18,7 +18,7 @@ Data Sources:
 - Climate Data: Daily temperature and rainfall from 7 weather stations
 - External Data: To be integrated (accommodation, pricing, accessibility)
 
-Author: Inter-Uni Datathon Team
+Author: GitPush Force team
 Date: August 2025
 """
 
