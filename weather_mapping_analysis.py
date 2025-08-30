@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-print("🌡️ WEATHER STATION TO RESORT MAPPING")
+print("WEATHER STATION TO RESORT MAPPING")
 print("=" * 50)
 
 # Load climate data
@@ -21,32 +21,32 @@ weather_station_mapping = {
 # Add resort names to climate data
 climate_data['Resort'] = climate_data['Bureau of Meteorology station number'].map(weather_station_mapping)
 
-print("📍 WEATHER STATION COVERAGE:")
+print("WEATHER STATION COVERAGE:")
 for station, resort in weather_station_mapping.items():
     count = climate_data[climate_data['Bureau of Meteorology station number'] == station].shape[0]
     date_range = climate_data[climate_data['Bureau of Meteorology station number'] == station]['Year']
     if len(date_range) > 0:
         print(f"  Station {station} → {resort}: {count:,} records ({date_range.min()}-{date_range.max()})")
 
-print("\n🎿 RESORT COVERAGE ANALYSIS:")
+print("\nRESORT COVERAGE ANALYSIS:")
 print("-" * 30)
 # Note: Selwyn doesn't have direct weather station coverage - this is a data gap we need to address
 resort_coverage = {
-    'Mt. Baw Baw': '✅ Direct (Station 85291)',
-    'Mt. Stirling': '⚠️  Uses Mt. Buller data (nearby)',
-    'Mt. Hotham': '✅ Direct (Station 83085)',
-    'Falls Creek': '✅ Direct (Station 83084)',
-    'Mt. Buller': '✅ Direct (Station 83024)',
-    'Selwyn': '❌ No weather station - DATA GAP',
-    'Thredbo': '✅ Direct (Station 71032)',
-    'Perisher': '✅ Direct (Station 71075)',
-    'Charlotte Pass': '✅ Two options (71075 & 72161)'
+    'Mt. Baw Baw': 'Direct (Station 85291)',
+    'Mt. Stirling': 'Uses Mt. Buller data (nearby)',
+    'Mt. Hotham': 'Direct (Station 83085)',
+    'Falls Creek': 'Direct (Station 83084)',
+    'Mt. Buller': 'Direct (Station 83024)',
+    'Selwyn': 'No weather station - DATA GAP',
+    'Thredbo': 'Direct (Station 71032)',
+    'Perisher': 'Direct (Station 71075)',
+    'Charlotte Pass': 'Two options (71075 & 72161)'
 }
 
 for resort, coverage in resort_coverage.items():
     print(f"  {resort}: {coverage}")
 
-print("\n🌡️ TEMPERATURE ANALYSIS BY RESORT:")
+print("\nTEMPERATURE ANALYSIS BY RESORT:")
 print("-" * 40)
 # Create date column for filtering
 climate_data['Date'] = pd.to_datetime(climate_data[['Year', 'Month', 'Day']])
@@ -64,5 +64,5 @@ for resort in weather_station_mapping.values():
         print(f"    Avg Min Temp: {avg_min:.1f}°C")
         print(f"    Temp Range: {avg_max-avg_min:.1f}°C")
 
-print(f"\n✅ Weather mapping complete! Data ready for correlation analysis.")
-print(f"⚠️  Note: Selwyn resort has no direct weather data - will need interpolation or use nearest station.")
+print(f"\nWeather mapping complete! Data ready for correlation analysis.")
+print(f"Note: Selwyn resort has no direct weather data - will need interpolation or use nearest station.")
